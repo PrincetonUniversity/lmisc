@@ -60,10 +60,10 @@ rect_coords <- function(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, res
 #' element vector. If a list, the first element specifies adjustments for legend.values, and the second 
 #' element adjustments for the legend.ext. If just a vector, then these values are used for both. e.g. 
 #' list(c(0, 0), c(-1, -0.5)); c(0, -0.5). 
-#' @name flexLegend
+#' @name flex_legend
 NULL
 
-#' @rdname flexLegend
+#' @rdname flex_legend
 #' @export
 flex_legend <- function(ncuts, legend.text, legend.vals, legend.pos, longdims, shortdims, colvec, 
                        leg.adj = c(0, 0), cex.val = 1, srt.val = 0, horiz = TRUE, textside = "bottom", 
