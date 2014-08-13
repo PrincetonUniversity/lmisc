@@ -113,8 +113,8 @@ flex_legend <- function(ncuts, legend.text, legend.vals, legend.pos, longdims, s
     if(textside == "left") tp <- c(1, 3)
     if(textside == "right") tp <- c(2, 4)
   }
-  crds <- rectCoordsLeg(minWorS = longdims[1], maxEorN = longdims[2], ncuts = ncuts, EWorNS = direction, 
-                        constEWorNS = shortdims[1], resEWorNS = shortdims[2])
+  crds <- rect_coords(minWorS = longdims[1], maxEorN = longdims[2], ncuts = ncuts, EWorNS = direction, 
+                      constEWorNS = shortdims[1], resEWorNS = shortdims[2])
   leg <- sapply(1:length(crds), function(j) {
       rect(crds[[j]][1, 1], crds[[j]][1, 2], crds[[j]][4, 1], crds[[j]][4, 2], col = colvec[j], 
            border = bordercol)
