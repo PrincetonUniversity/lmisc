@@ -18,7 +18,7 @@ flex_legend(ncuts, legend.text, legend.vals, legend.pos, longdims, shortdims,
 
 \item{longdims}{Vector specifying the user coordinates for the legend's long axis (e.g. c(0.2, 0.8))}
 
-\item{shortdims}{Vector specifying the user coordinates for the legend's short axis (e.g. c(0.01, 0.04))}
+\item{shortdims}{1) anchor user coordinate for the short axis; 2) width of short axis (e.g. c(0.05, 0.02))}
 
 \item{colvec}{Vector of colors to fill each polygon in vector, equal in length to ncuts}
 

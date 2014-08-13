@@ -42,7 +42,7 @@ rect_coords <- function(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, res
 #' @param legend.vals Vector of labels for the legend
 #' @param legend.pos A 1 or 2 element vector that specifies where along vector legend.text should be (details)
 #' @param longdims Vector specifying the user coordinates for the legend's long axis (e.g. c(0.2, 0.8))
-#' @param shortdims Vector specifying the user coordinates for the legend's short axis (e.g. c(0.01, 0.04))
+#' @param shortdims 1) anchor user coordinate for the short axis; 2) width of short axis (e.g. c(0.05, 0.02))
 #' @param colvec Vector of colors to fill each polygon in vector, equal in length to ncuts
 #' @param leg.adj Tweak position(s) of legend.vals and/or legend.text (see details) 
 #' @param cex.val Adjusts the text size of legend.vals and/or legend.text (see details)
