@@ -25,6 +25,6 @@ List of coordinates for the four corners of each segment of legend, in graphical
 Finds graphics device coordinates for rectangles that can be used to construct image legend
 }
 \details{
-This function depends on the TeachingDemos library, and still uses the deprecated cnvrt.coords()
+This function depends on the TeachingDemos library, and still uses the deprecated cnvrt.coords().
 }
 

@@ -1,4 +1,5 @@
 #' Finds graphics device coordinates for rectangles that can be used to construct image legend
+#' 
 #' @param minWorS The minimum X (horizontal legend) or Y (vertical) user coordinate (0 - 1) for the legend
 #' @param maxEorN The maximum X (horizontal legend) or Y (vertical) user coordinate (0 - 1) for the legend 
 #' @param ncuts Number of intervals for legend
@@ -7,9 +8,7 @@
 #' @param resEWorNS The width in user coordinate for the legend
 #' @return List of coordinates for the four corners of each segment of legend, in graphical device coords
 #' @details This function depends on the TeachingDemos library, and still uses the deprecated cnvrt.coords().
-
 rectCoordsLeg <- function(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, resEWorNS) {
-  
   space <- diff(c(minWorS, maxEorN)) / ncuts  # Resolution in map coordinates for legend boxes 
   crds <- seq(minWorS, maxEorN, space)  # map coordinates for legend boxes
   vcrd <- rbind(crds[-length(crds)], crds[-1])  # Segment coordinates (legend intervals)
@@ -36,6 +35,7 @@ rectCoordsLeg <- function(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, r
 }
 
 #' Creates a vertical or horizontal legend in a location of your choosing
+#' 
 #' @param ncuts Number of intervals for legend
 #' @param legend.text Label for the legend (e.g. units)
 #' @param legend.vals Vector of labels for the legend
@@ -51,8 +51,18 @@ rectCoordsLeg <- function(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, r
 #' @param textcol Vector of colors for legend.vals and legend.text
 #' @param bordercol Outline color for polygon borders in legend
 #' @return A polygon based legend
-#' @details This function depends on the TeachingDemos library, and still uses the deprecated cnvrt.coords().
-# require(TeachingDemos). List (e.g. list(c(0, 0), c(-1, -0.5)) or vector (c(0, -0.5)) for  
+#' @details This function depends on the TeachingDemos library, and still uses the deprecated cnvrt.coords(). 
+#' legend.pos uses a two parameter vector, with the second value specifying the polygon number in the legend 
+#' next to/above/below which the legend.text will appear, and the first which of the four corners of the 
+#' polygon it will be closest to. Default values are chosen if just one (which then specifies polygon number)
+#' or no values are provided. leg.adj is passed as either a list of two two element vectors, or a single two 
+#' element vector. If a list, the first element specifies adjustments for legend.values, and the second 
+#' element adjustments for the legend.ext. If just a vector, then these values are used for both. e.g. 
+#' list(c(0, 0), c(-1, -0.5)); c(0, -0.5). 
+#' @name flexLegend
+NULL
+
+#' @rdname flexLegend
 flexLegend <- function(ncuts, legend.text, legend.vals, legend.pos, longdims, shortdims, colvec, 
                        leg.adj = c(0, 0), cex.val = 1, srt.val = 0, horiz = TRUE, textside = "bottom", 
                        textcol = "black", bordercol = "black") {
@@ -123,4 +133,3 @@ flexLegend <- function(ncuts, legend.text, legend.vals, legend.pos, longdims, sh
   text(x = lcrds[1], y = lcrds[2] + abs(lcrds[2] * lbump), legend.text, cex = cex2, adj = ladj2, 
        srt = srt2, col = textcol)
 }
-

@@ -1,4 +1,5 @@
 #' Makes horizontal boxplots 
+#' 
 #' @param x Vector containing, respectively, the 5, 25, 50, 75, 95th percentile values and the mean
 #' @param ycoord Y coordinate for plotting boxplot
 #' @param inhgt Height of the interquartile box, scaled to size of device and number of boxes to be plotted
@@ -22,6 +23,7 @@ homeBoxPlot <- function(x, ycoord, inhgt = 20, whiskhgt, bcol, bfill, whiskcol, 
 }
 
 #' Makes vertical boxplots 
+#' 
 #' @param xcoord X coordinate for plotting boxplot
 #' @param y Vector containing, respectively, the 5, 25, 50, 75, 95th percentile values and the mean
 #' @param inhgt Height of the interquartile box, scaled to size of device and number of boxes to be plotted
