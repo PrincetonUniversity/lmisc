@@ -14,7 +14,7 @@ rect_coords(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, resEWorNS)
 
 \item{EWorNS}{"EW" for horizontal legend (default) or "NS" for vertical}
 
-\item{constEWnorS}{The coordinate that will remain constant (X coord for vertical legend, Y for horiz)}
+\item{constEWorNS}{The coordinate that will remain constant (X coord for vertical legend, Y for horiz)}
 
 \item{resEWorNS}{The width in user coordinate for the legend}
 }

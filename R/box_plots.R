@@ -6,6 +6,7 @@
 #' @param whiskhgt Height of the 95th percentile whiskers, scaled in the same way as inhgt
 #' @param bcol Color of lines (median line, whiskers and interquartile outline) and mean point
 #' @param bfill Fill color for interquartile box
+#' @param whiskcol Color of the whiskers
 #' @param n Number of boxplots to be placed on plot
 #' @param pcex Size of point indicating the mean 
 #' @return Boxplot   
@@ -30,6 +31,7 @@ boxplot_y <- function(x, ycoord, inhgt = 20, whiskhgt, bcol, bfill, whiskcol, n,
 #' @param whiskhgt Height of the 95th percentile whiskers, scaled in the same way as inhgt
 #' @param bcol Color of lines (median line, whiskers and interquartile outline) and mean point
 #' @param bfill Fill color for interquartile box
+#' @param whiskcol Color of the whiskers
 #' @param n Number of boxplots to be placed on plot
 #' @param pcex Size of point indicating the mean 
 #' @return Boxplot   

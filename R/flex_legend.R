@@ -4,7 +4,7 @@
 #' @param maxEorN The maximum X (horizontal legend) or Y (vertical) user coordinate (0 - 1) for the legend 
 #' @param ncuts Number of intervals for legend
 #' @param EWorNS "EW" for horizontal legend (default) or "NS" for vertical
-#' @param constEWnorS The coordinate that will remain constant (X coord for vertical legend, Y for horiz)
+#' @param constEWorNS The coordinate that will remain constant (X coord for vertical legend, Y for horiz)
 #' @param resEWorNS The width in user coordinate for the legend
 #' @return List of coordinates for the four corners of each segment of legend, in graphical device coords
 #' @details This function depends on the TeachingDemos library, and still uses the deprecated cnvrt.coords().
@@ -30,7 +30,7 @@ rect_coords <- function(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, res
     })
   }  
   rtdev <- lapply(1:ncuts, function(x) {
-    do.call("cbind", Teaching.Demos::cnvrt.coords(rects[[x]][, 1], rects[[x]][, 2], 'tdev')$usr)  
+    do.call("cbind", TeachingDemos::cnvrt.coords(rects[[x]][, 1], rects[[x]][, 2], 'tdev')$usr)  
   })
   return(rtdev)
 }

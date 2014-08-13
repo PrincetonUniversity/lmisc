@@ -18,6 +18,8 @@ boxplot_y(x, ycoord, inhgt = 20, whiskhgt, bcol, bfill, whiskcol, n, pcex)
 
 \item{bfill}{Fill color for interquartile box}
 
+\item{whiskcol}{Color of the whiskers}
+
 \item{n}{Number of boxplots to be placed on plot}
 
 \item{pcex}{Size of point indicating the mean}
