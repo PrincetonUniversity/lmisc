@@ -8,7 +8,8 @@
 #' @param resEWorNS The width in user coordinate for the legend
 #' @return List of coordinates for the four corners of each segment of legend, in graphical device coords
 #' @details This function depends on the TeachingDemos library, and still uses the deprecated cnvrt.coords().
-rectCoordsLeg <- function(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, resEWorNS) {
+#' @export
+rect_coords <- function(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, resEWorNS) {
   space <- diff(c(minWorS, maxEorN)) / ncuts  # Resolution in map coordinates for legend boxes 
   crds <- seq(minWorS, maxEorN, space)  # map coordinates for legend boxes
   vcrd <- rbind(crds[-length(crds)], crds[-1])  # Segment coordinates (legend intervals)
@@ -63,7 +64,8 @@ rectCoordsLeg <- function(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, r
 NULL
 
 #' @rdname flexLegend
-flexLegend <- function(ncuts, legend.text, legend.vals, legend.pos, longdims, shortdims, colvec, 
+#' @export
+flex_legend <- function(ncuts, legend.text, legend.vals, legend.pos, longdims, shortdims, colvec, 
                        leg.adj = c(0, 0), cex.val = 1, srt.val = 0, horiz = TRUE, textside = "bottom", 
                        textcol = "black", bordercol = "black") {
   

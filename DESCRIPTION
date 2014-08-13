@@ -6,9 +6,7 @@ Description: A set of various functions that I have found helpful across
 Version: 0.1
 Date: 12-August-2014
 Depends:
-    R (>= 3.0.1)
-Imports:
-    TeachingDemos
-Author: Lyndon Estes <lestes@princeton.edu>
-Maintainer: Lyndon Estes <lestes@princeton.edu>
-License: GPL
+    TeachingDemos,
+    R (>= 3.0.0)
+Imports: TeachingDemos
+License: GPL (>= 3)

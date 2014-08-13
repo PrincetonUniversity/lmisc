@@ -10,8 +10,8 @@
 #' @param pcex Size of point indicating the mean 
 #' @return Boxplot   
 #' @details To be used with dummy call to plot(). Specify the number of boxes to be placed on the Y axis  
-
-homeBoxPlot <- function(x, ycoord, inhgt = 20, whiskhgt, bcol, bfill, whiskcol, n, pcex) {
+#' @export
+boxplot_y <- function(x, ycoord, inhgt = 20, whiskhgt, bcol, bfill, whiskcol, n, pcex) {
   insc <- par()$din[1] / n * inhgt / 100 / 2
   whisksc <- par()$din[1] / n * whiskhgt / 100
   arrows(x[1], ycoord, x[2], ycoord, angle = 90, code = 1, length = whisksc, col = bcol)
@@ -34,7 +34,8 @@ homeBoxPlot <- function(x, ycoord, inhgt = 20, whiskhgt, bcol, bfill, whiskcol, 
 #' @param pcex Size of point indicating the mean 
 #' @return Boxplot   
 #' @details To be used with dummy call to plot(). Specify the number of boxes to be placed on the Y axis. 
-homeBoxPlotX <- function(xcoord, y, inhgt = 20, whiskhgt, bcol, bfill, whiskcol, n, pcex) {
+#' @export
+boxplot_v <- function(xcoord, y, inhgt = 20, whiskhgt, bcol, bfill, whiskcol, n, pcex) {
   insc <- par()$din[2] / n * inhgt / 100 / 2
   whisksc <- par()$din[2] / n * whiskhgt / 100
   arrows(xcoord, y[1], xcoord, y[2], angle = 90, code = 1, length = whisksc, col = whiskcol, lwd = 3)
