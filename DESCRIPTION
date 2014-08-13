@@ -1,0 +1,17 @@
+Package: lmisc
+Type: Package
+Title: Miscellaneous functions for plotting and performing various small tasks
+Version: 0.1
+Date: 12-August-2014
+Depends:
+    R (>= 3.0.1)
+Suggests:
+    
+Author: Lyndon Estes
+Maintainer: Lyndon Estes <lyndon.estes@gmail.com>
+Description: Various
+License: GPL (>= 3)
+URL: 
+Packaged: 
+Repository: 
+Date/Publication: 

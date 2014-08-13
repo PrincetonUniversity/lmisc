@@ -1,6 +1,58 @@
-# flexLegend.R
+#' Finds graphics device coordinates for rectangles that can be used to construct image legend
+#' @param minWorS The minimum X (horizontal legend) or Y (vertical) user coordinate (0 - 1) for the legend
+#' @param maxEorN The maximum X (horizontal legend) or Y (vertical) user coordinate (0 - 1) for the legend 
+#' @param ncuts Number of intervals for legend
+#' @param EWorNS "EW" for horizontal legend (default) or "NS" for vertical
+#' @param constEWnorS The coordinate that will remain constant (X coord for vertical legend, Y for horiz)
+#' @param resEWorNS The width in user coordinate for the legend
+#' @return List of coordinates for the four corners of each segment of legend, in graphical device coords
+#' @details This function depends on the TeachingDemos library, and still uses the deprecated cnvrt.coords().
 
-library(TeachingDemos)
+rectCoordsLeg <- function(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, resEWorNS) {
+  
+  space <- diff(c(minWorS, maxEorN)) / ncuts  # Resolution in map coordinates for legend boxes 
+  crds <- seq(minWorS, maxEorN, space)  # map coordinates for legend boxes
+  vcrd <- rbind(crds[-length(crds)], crds[-1])  # Segment coordinates (legend intervals)
+  
+  if(EWorNS == "NS") {
+    rects <- lapply(1:ncuts, function(x) {
+      rbind("ll" = c("x" = constEWorNS, "y" = vcrd[1, x]),
+            "lr" = c("x" = constEWorNS + resEWorNS, "y" = vcrd[1, x]), 
+            "ul" = c("x" = constEWorNS, "y" = vcrd[2, x]),
+            "ur" = c("x" = constEWorNS + resEWorNS, "y" = vcrd[2, x]))    
+    })
+  } else if(EWorNS == "EW") {
+    rects <- lapply(1:ncuts, function(x) {
+      rbind("ll" = c("x" = vcrd[1, x], "y" = constEWorNS),
+            "lr" = c("x" = vcrd[2, x], "y" = constEWorNS), 
+            "ul" = c("x" = vcrd[1, x], "y" = constEWorNS + resEWorNS),
+            "ur" = c("x" = vcrd[2, x], "y" = constEWorNS + resEWorNS))    
+    })
+  }  
+  rtdev <- lapply(1:ncuts, function(x) {
+    do.call("cbind", Teaching.Demos::cnvrt.coords(rects[[x]][, 1], rects[[x]][, 2], 'tdev')$usr)  
+  })
+  return(rtdev)
+}
+
+#' Creates a vertical or horizontal legend in a location of your choosing
+#' @param ncuts Number of intervals for legend
+#' @param legend.text Label for the legend (e.g. units)
+#' @param legend.vals Vector of labels for the legend
+#' @param legend.pos A 1 or 2 element vector that specifies where along vector legend.text should be (details)
+#' @param longdims Vector specifying the user coordinates for the legend's long axis (e.g. c(0.2, 0.8))
+#' @param shortdims Vector specifying the user coordinates for the legend's short axis (e.g. c(0.01, 0.04))
+#' @param colvec Vector of colors to fill each polygon in vector, equal in length to ncuts
+#' @param leg.adj Tweak position(s) of legend.vals and/or legend.text (see details) 
+#' @param cex.val Adjusts the text size of legend.vals and/or legend.text (see details)
+#' @param srt.val Rotation of legend.vals and/or legend.text (see details)
+#' @param horiz TRUE (default) or FALSE for horizontal or vertical legend
+#' @param textside Specify "bottom" (default) or "top" for side of legend.vals on legend
+#' @param textcol Vector of colors for legend.vals and legend.text
+#' @param bordercol Outline color for polygon borders in legend
+#' @return A polygon based legend
+#' @details This function depends on the TeachingDemos library, and still uses the deprecated cnvrt.coords().
+# require(TeachingDemos). List (e.g. list(c(0, 0), c(-1, -0.5)) or vector (c(0, -0.5)) for  
 flexLegend <- function(ncuts, legend.text, legend.vals, legend.pos, longdims, shortdims, colvec, 
                        leg.adj = c(0, 0), cex.val = 1, srt.val = 0, horiz = TRUE, textside = "bottom", 
                        textcol = "black", bordercol = "black") {
