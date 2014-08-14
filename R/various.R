@@ -7,9 +7,11 @@
 #' @export
 full_path <- function(path, fname) {
   pend <- substr(path, nchar(path), nchar(path))
-  #pout <- ifelse(pend != "/", paste(path, "/", fname, sep = ""), paste(path, fname, sep = ""))
-  pout <- ifelse(pend != .Platform$file.sep, paste(path, .Platform$file.sep, fname, sep = ""), 
-                 paste(path, fname, sep = ""))
+  if(pend != .Platform$file.sep) {
+    pout <- paste(path, .Platform$file.sep, fname, sep = "") 
+  } else { 
+    pout <- paste(path, fname, sep = "")
+  }
   pout
 }
 
