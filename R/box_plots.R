@@ -1,6 +1,16 @@
+#' Calculates boxplot statistics
+#' 
+#' @param x Vector of values from which to calculate statistics
+#' @param whiskers A two-element vector of the percentiles for the lower and upper whiskers (c(0.25, 0.975))
+#' @return A vector containing the 2.5, 25, 50, 75, 97.5th percentile values and the mean
+#' @export
+box_stats <- function(x, whiskers = c(0.25, 0.975)) {
+  c(quantile(x, c(whiskers[1], 0.25, 0.5, 0.75, whiskers[2])), mean(x))
+}
+
 #' Makes horizontal boxplots 
 #' 
-#' @param x Vector containing, respectively, the 5, 25, 50, 75, 95th percentile values and the mean
+#' @param x Vector of the 6 boxplot statistics (e.g. 5, 25, 50, 75, 95th percentile and mean)
 #' @param ycoord Y coordinate for plotting boxplot
 #' @param inhgt Height of the interquartile box, scaled to size of device and number of boxes to be plotted
 #' @param whiskhgt Height of the 95th percentile whiskers, scaled in the same way as inhgt
@@ -26,7 +36,7 @@ boxplot_y <- function(x, ycoord, inhgt = 20, whiskhgt, bcol, bfill, whiskcol, n,
 #' Makes vertical boxplots 
 #' 
 #' @param xcoord X coordinate for plotting boxplot
-#' @param y Vector containing, respectively, the 5, 25, 50, 75, 95th percentile values and the mean
+#' @param y Vector of the 6 boxplot statistics (e.g. 5, 25, 50, 75, 95th percentile and mean)
 #' @param inhgt Height of the interquartile box, scaled to size of device and number of boxes to be plotted
 #' @param whiskhgt Height of the 95th percentile whiskers, scaled in the same way as inhgt
 #' @param bcol Color of lines (median line, whiskers and interquartile outline) and mean point

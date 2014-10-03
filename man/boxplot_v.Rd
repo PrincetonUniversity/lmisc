@@ -8,7 +8,7 @@ boxplot_v(xcoord, y, inhgt = 20, whiskhgt, bcol, bfill, whiskcol, n, pcex)
 \arguments{
 \item{xcoord}{X coordinate for plotting boxplot}
 
-\item{y}{Vector containing, respectively, the 5, 25, 50, 75, 95th percentile values and the mean}
+\item{y}{Vector of the 6 boxplot statistics (e.g. 5, 25, 50, 75, 95th percentile and mean)}
 
 \item{inhgt}{Height of the interquartile box, scaled to size of device and number of boxes to be plotted}
 

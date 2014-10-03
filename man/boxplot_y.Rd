@@ -6,7 +6,7 @@
 boxplot_y(x, ycoord, inhgt = 20, whiskhgt, bcol, bfill, whiskcol, n, pcex)
 }
 \arguments{
-\item{x}{Vector containing, respectively, the 5, 25, 50, 75, 95th percentile values and the mean}
+\item{x}{Vector of the 6 boxplot statistics (e.g. 5, 25, 50, 75, 95th percentile and mean)}
 
 \item{ycoord}{Y coordinate for plotting boxplot}
 
