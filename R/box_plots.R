@@ -1,11 +1,12 @@
 #' Calculates boxplot statistics
 #' 
 #' @param x Vector of values from which to calculate statistics
-#' @param whiskers A two-element vector of the percentiles for the lower and upper whiskers (c(0.25, 0.975))
+#' @param whiskers A two-element vector of the percentiles for the lower and upper whiskers (c(0.025, 0.975))
+#' @param NAs Should the quantile and mean functions exclude NA values in x? Default is TRUE, else FALSE
 #' @return A vector containing the 2.5, 25, 50, 75, 97.5th percentile values and the mean
 #' @export
-box_stats <- function(x, whiskers = c(0.25, 0.975)) {
-  c(quantile(x, c(whiskers[1], 0.25, 0.5, 0.75, whiskers[2])), mean(x))
+box_stats <- function(x, whiskers = c(0.025, 0.975), NAs = TRUE) {
+  c(quantile(x, c(whiskers[1], 0.25, 0.5, 0.75, whiskers[2]), na.rm = NAs), mean(x, na.rm = NAs))
 }
 
 #' Makes horizontal boxplots 

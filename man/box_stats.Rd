@@ -3,12 +3,14 @@
 \alias{box_stats}
 \title{Calculates boxplot statistics}
 \usage{
-box_stats(x, whiskers = c(0.25, 0.975))
+box_stats(x, whiskers = c(0.025, 0.975), NAs = TRUE)
 }
 \arguments{
 \item{x}{Vector of values from which to calculate statistics}
 
-\item{whiskers}{A two-element vector of the percentiles for the lower and upper whiskers (c(0.25, 0.975))}
+\item{whiskers}{A two-element vector of the percentiles for the lower and upper whiskers (c(0.025, 0.975))}
+
+\item{NAs}{Should the quantile and mean functions exclude NA values in x? Default is TRUE, else FALSE}
 }
 \value{
 A vector containing the 2.5, 25, 50, 75, 97.5th percentile values and the mean
