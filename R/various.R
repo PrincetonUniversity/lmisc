@@ -15,8 +15,9 @@ full_path <- function(path, fname) {
   pout
 }
 
-#' Creates root directory for project (one above project directory), to facilitate projects across computers
-#' 
+#' Create root directory for project
+#' @description Create root directory for project (one above project directory), to facilitate projects across 
+#' computers
 #' @param proj.dir Character vector specifying name of project working directory (not a full file path)
 #' @return A file path with the platform-specific path structure 
 #' @export

@@ -1,5 +1,5 @@
-#' Finds graphics device coordinates for rectangles that can be used to construct image legend
-#' 
+#' Find graphics device coordinates for rectangles
+#' @description Finds graphics device coordinates for rectangles that can be used to construct image legend
 #' @param minWorS The minimum X (horizontal legend) or Y (vertical) user coordinate (0 - 1) for the legend
 #' @param maxEorN The maximum X (horizontal legend) or Y (vertical) user coordinate (0 - 1) for the legend 
 #' @param ncuts Number of intervals for legend
@@ -30,13 +30,15 @@ rect_coords <- function(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, res
     })
   }  
   rtdev <- lapply(1:ncuts, function(x) {
-    do.call("cbind", TeachingDemos::cnvrt.coords(rects[[x]][, 1], rects[[x]][, 2], 'tdev')$usr)  
+    #do.call("cbind", TeachingDemos::cnvrt.coords(rects[[x]][, 1], rects[[x]][, 2], 'tdev')$usr)
+    cbind(grconvertX(rects[[x]][, 1], from = "ndc", to = "user"), 
+          grconvertY(rects[[x]][, 2], from = "ndc", to = "user"))
   })
   return(rtdev)
 }
 
-#' Creates a vertical or horizontal legend in a location of your choosing
-#' 
+#' Create a legend where you want it
+#' @description Creates a vertical or horizontal legend in a location of your choosing
 #' @param ncuts Number of intervals for legend
 #' @param legend.text Label for the legend (e.g. units)
 #' @param legend.vals Vector of labels for the legend
@@ -52,18 +54,35 @@ rect_coords <- function(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, res
 #' @param textcol Vector of colors for legend.vals and legend.text
 #' @param bordercol Outline color for polygon borders in legend
 #' @return A polygon based legend
-#' @details This function depends on the TeachingDemos library, and still uses the deprecated cnvrt.coords(). 
-#' legend.pos uses a two parameter vector, with the second value specifying the polygon number in the legend 
-#' next to/above/below which the legend.text will appear, and the first which of the four corners of the 
-#' polygon it will be closest to. Default values are chosen if just one (which then specifies polygon number)
-#' or no values are provided. leg.adj is passed as either a list of two two element vectors, or a single two 
-#' element vector. If a list, the first element specifies adjustments for legend.values, and the second 
-#' element adjustments for the legend.ext. If just a vector, then these values are used for both. e.g. 
+#' @details Legend.pos uses a two parameter vector, with the second value specifying the polygon number in the 
+#' legend next to/above/below which the legend.text will appear, and the first which of the four corners of  
+#' the polygon it will be closest to. Default values are chosen if just one (which then specifies polygon 
+#' number)vor no values are provided. leg.adj is passed as either a list of two two element vectors, or a 
+#' single two element vector. If a list, the first element specifies adjustments for legend.values, and the 
+#' second element adjustments for the legend.text. If just a vector, then these values are used for both. e.g. 
 #' list(c(0, 0), c(-1, -0.5)); c(0, -0.5). 
 #' @name flex_legend
-NULL
-
 #' @rdname flex_legend
+#' @examples 
+#' library(raster)
+#' r1 <- raster(nrow = 20, ncol = 20)
+#' r1[] <- sample(0:75, ncell(r1), replace = TRUE)
+#' brks <- round(quantile(r1, seq(0, 1, 0.1)))
+#' cols <- colorRampPalette(c("red", "antiquewhite", "blue"))
+#' par(mar = c(5, 4, 0, 0))
+#' plot(r1, axes = FALSE, box = FALSE, legend = FALSE, breaks = brks, col = cols(length(brks) - 1))
+#' flex_legend(ncuts = length(brks) - 1, legend.text = "vals", leg.adj = list(c(0.5, 1), c(0, -0.5)), 
+#'             legend.vals = brks, legend.pos = c(4, 5), longdims = c(0.2, 0.8), shortdims = c(0.08, 0.03), 
+#'             colvec = cols(length(brks) - 1))
+#' dev.off()
+#' 
+#' par(mar = c(0, 4, 0, 4))
+#' plot(r1, axes = FALSE, box = FALSE, legend = FALSE, breaks = brks, col = cols(length(brks) - 1))
+#' flex_legend(ncuts = length(brks) - 1, legend.text = "vals", textside = "right", 
+#'             legend.pos = c(3, 10), leg.adj = list(c(0.2, 0.5), c(0, -1)), 
+#'             horiz = FALSE, legend.vals = brks, longdims = c(0.2, 0.8), 
+#'             shortdims = c(0.85, 0.02), colvec = cols(length(brks) - 1))
+#'             dev.off()
 #' @export
 flex_legend <- function(ncuts, legend.text, legend.vals, legend.pos, longdims, shortdims, colvec, 
                        leg.adj = c(0, 0), cex.val = 1, srt.val = 0, horiz = TRUE, textside = "bottom", 
@@ -106,12 +125,14 @@ flex_legend <- function(ncuts, legend.text, legend.vals, legend.pos, longdims, s
     if(length(lp) < 2) lp <- c(2, legend.pos)
     if(textside == "bottom") tp <- side <- c(1, 2)
     if(textside == "top") tp <- c(3, 4)
+    if(textside == "left" | textside == "right") stop("Horizontal legends must have labels on top or bottom")
   } else if(horiz == FALSE) {
     direction <- "NS"
     if(is.null(lp)) lp <- c(3, ncuts)
     if(length(lp) < 2) lp <- c(3, legend.pos)
     if(textside == "left") tp <- c(1, 3)
     if(textside == "right") tp <- c(2, 4)
+    if(textside == "top" | textside == "bottom") stop("Vertical legends must have labels on left or right")
   }
   crds <- rect_coords(minWorS = longdims[1], maxEorN = longdims[2], ncuts = ncuts, EWorNS = direction, 
                       constEWorNS = shortdims[1], resEWorNS = shortdims[2])
