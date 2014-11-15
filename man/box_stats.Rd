@@ -3,19 +3,37 @@
 \alias{box_stats}
 \title{Calculates boxplot statistics}
 \usage{
-box_stats(x, whiskers = c(0.025, 0.975), NAs = TRUE)
+box_stats(x, whiskers = c(0.025, 0.975), weighted = FALSE,
+  weight.opts = NULL, na.rm = TRUE)
 }
 \arguments{
 \item{x}{Vector of values from which to calculate statistics}
 
 \item{whiskers}{A two-element vector of the percentiles for the lower and upper whiskers (c(0.025, 0.975))}
 
-\item{NAs}{Should the quantile and mean functions exclude NA values in x? Default is TRUE, else FALSE}
+\item{weighted}{TRUE or FALSE (default) for weighted quantiles and mean}
+
+\item{weight.opts}{A list of options to be passed to wtd.quantile}
+
+\item{na.rm}{Should the quantile and mean functions exclude NA values in x? Default is TRUE, else FALSE}
 }
 \value{
 A vector containing the 2.5, 25, 50, 75, 97.5th percentile values and the mean
 }
 \description{
 Calculates boxplot statistics
+}
+\details{
+If weighted is TRUE, the wtd.quantile and wtd.mean functions from Hmisc are called, and a weights
+vector equal in length to x is needed, passed as the minimum necessary parameter for calculating weighted
+quantiles. A named list should be provided where the name for each element matches the argument name for
+Hmisc::wtd.quantile and Hmisd::wtd.mean. Other possible arguments include type and normwt.
+}
+\examples{
+set.seed(234)
+x <- rnorm(20)
+w <- sample(1:10, size = 20, replace = TRUE)
+box_stats(x)
+box_stats(x, weighted = TRUE, weight.opts = list("weights" = w))
 }
 

@@ -2,11 +2,37 @@
 #' 
 #' @param x Vector of values from which to calculate statistics
 #' @param whiskers A two-element vector of the percentiles for the lower and upper whiskers (c(0.025, 0.975))
-#' @param NAs Should the quantile and mean functions exclude NA values in x? Default is TRUE, else FALSE
+#' @param weighted TRUE or FALSE (default) for weighted quantiles and mean
+#' @param weight.opts A list of options to be passed to wtd.quantile
+#' @param na.rm Should the quantile and mean functions exclude NA values in x? Default is TRUE, else FALSE
 #' @return A vector containing the 2.5, 25, 50, 75, 97.5th percentile values and the mean
+#' @details If weighted is TRUE, the wtd.quantile and wtd.mean functions from Hmisc are called, and a weights
+#' vector equal in length to x is needed, passed as the minimum necessary parameter for calculating weighted 
+#' quantiles. A named list should be provided where the name for each element matches the argument name for 
+#' Hmisc::wtd.quantile and Hmisd::wtd.mean. Other possible arguments include type and normwt.
+#' @examples 
+#' set.seed(234)
+#' x <- rnorm(20)
+#' w <- sample(1:10, size = 20, replace = TRUE)
+#' box_stats(x)
+#' box_stats(x, weighted = TRUE, weight.opts = list("weights" = w))
 #' @export
-box_stats <- function(x, whiskers = c(0.025, 0.975), NAs = TRUE) {
-  c(quantile(x, c(whiskers[1], 0.25, 0.5, 0.75, whiskers[2]), na.rm = NAs), "mu" = mean(x, na.rm = NAs))
+box_stats <- function(x, whiskers = c(0.025, 0.975), weighted = FALSE, weight.opts = NULL, na.rm = TRUE) {
+  p <- c(whiskers[1], 0.25, 0.5, 0.75, whiskers[2])
+  if(weighted == FALSE) {
+    bs <- c(quantile(x, p, na.rm = na.rm), "mu" = mean(x, na.rm = na.rm))
+  } else if(weighted == TRUE) {
+      if(is.null(weight.opts)) stop("Parameters for weights are needed, and optionallym type, and normwt")
+      w <- weight.opts
+      if(!"weights" %in% names(w)) stop("You are missing, or have incorrectly named, the weights vector")
+      if(!"type" %in% names(w)) w$type <- "quantile"
+      if(!"normwt" %in% names(w)) w$normwt <- "FALSE"
+      a <- Hmisc::wtd.quantile(x, weights = w$weights, type = w$type, normwt = w$normwt, probs = p, 
+                               na.rm = na.rm) 
+      b <- Hmisc::wtd.mean(x, weights = w$weights, normwt = w$normwt, na.rm = na.rm)
+      bs <- c(a, "mu" = b)
+  }
+  return(bs)
 }
 
 #' Makes horizontal boxplots 
