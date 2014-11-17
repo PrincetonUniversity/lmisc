@@ -35,8 +35,25 @@ proj_root <- function(proj.dir) {
   return(root_dir)
 }
 
-
-
-
-
-
+#' Names and returns object inside nested apply functions 
+#' @description This little function assigns a name to an object created by an inner apply function and returns 
+#' it
+#' @param ret Object
+#' @param nm Name to assign to object
+#' @return Named object out of loop
+#' @details The entire purpose of this function is simply to save a line when writing nested apply functions 
+#' so that names can be assigned to object and returned without taking up needless space
+#' @examples
+#' ab <- list("a" = c(1:10), "b" = c(11:20))
+#' d <- sample(-5:5, size = 10, replace = TRUE)
+#' lapply(ab$a, function(x) {
+#'   o <- lapply(d, function(j) {
+#'     x * ab$b * d
+#'   })  
+#'   named_out(o, paste("a", x, "b", gsub("-", "neg", d), sep = "")) 
+#' })
+#' @export
+named_out <- function(ret, nm) {
+  names(ret) <- nm
+  return(ret)
+}
