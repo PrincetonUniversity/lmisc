@@ -3,7 +3,7 @@ Type: Package
 Title: Miscellaneous functions for plotting and performing various small tasks
 Description: A set of various functions that I have found helpful across
     various R projects.
-Version: 0.2.3
+Version: 0.2.4
 Date: 12-August-2014
 Author: Lyndon Estes <lestes@princeton.edu>
 Maintainer: Lyndon Estes <lestes@princeton.edu>

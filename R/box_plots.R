@@ -77,8 +77,12 @@ boxplot_h <- function(x, ycoord, n, inhgt = 20, whiskhgt = 5, bcol = "black", bf
   insc <- par()$din[1] / n * inhgt / 100 / 2
   insc2 <- insc * 0.8
   whisksc <- par()$din[1] / n * whiskhgt / 100
-  arrows(x[1], ycoord, x[2], ycoord, angle = 90, code = 1, length = whisksc, col = bcol[1], lwd = lwd[1])
-  arrows(x[4], ycoord, x[5], ycoord, angle = 90, code = 2, length = whisksc, col = bcol[1], lwd = lwd[1])
+  if(diff(x[1], x[2]) > 0) {
+    arrows(x[1], ycoord, x[2], ycoord, angle = 90, code = 1, length = whisksc, col = bcol[1], lwd = lwd[1])
+  }
+  if(diff(x[4], x[5]) > 0) {
+    arrows(x[4], ycoord, x[5], ycoord, angle = 90, code = 2, length = whisksc, col = bcol[1], lwd = lwd[1])
+  }
   rect(xleft = x[2], ybottom = ycoord - insc, xright = x[4], ytop = ycoord + insc, col = bfill, 
        border = bcol[2], lwd = lwd[2])
   lines(rep(x[3], 2), c(ycoord - insc2, ycoord + insc2), lwd = lwd[3], col = bcol[3], lend = 2)
@@ -124,8 +128,12 @@ boxplot_v <- function(xcoord, y, n, inhgt = 20, whiskhgt = 5, bcol = "black", bf
   insc <- par()$din[1] / n * inhgt / 100 / 2
   insc2 <- insc * 0.8
   whisksc <- par()$din[2] / n * whiskhgt / 100
-  arrows(xcoord, y[1], xcoord, y[2], angle = 90, code = 1, length = whisksc, col = bcol[1], lwd = lwd[1])
-  arrows(xcoord, y[4], xcoord, y[5], angle = 90, code = 2, length = whisksc, col = bcol[1], lwd = lwd[1])
+  if(diff(y[1], y[2]) > 0) {
+    arrows(xcoord, y[1], xcoord, y[2], angle = 90, code = 1, length = whisksc, col = bcol[1], lwd = lwd[1])
+  }
+  if(diff(y[4], y[5]) > 0) {
+    arrows(xcoord, y[4], xcoord, y[5], angle = 90, code = 2, length = whisksc, col = bcol[1], lwd = lwd[1])
+  }
   rect(xleft = xcoord - insc, ybottom = y[2], xright = xcoord + insc, ytop = y[4], col = bfill, 
        border = bcol[2], lwd = lwd[2])
   lines(c(xcoord - insc2, xcoord + insc2), rep(y[3], 2), lwd = lwd[3], col = bcol[3], lend = 2)
