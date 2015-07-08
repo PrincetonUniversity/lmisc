@@ -9,7 +9,8 @@
 #' @return List of coordinates for the four corners of each segment of legend, in graphical device coords
 #' @details This function depends on the TeachingDemos library, and still uses the deprecated cnvrt.coords().
 #' @export
-rect_coords <- function(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, resEWorNS) {
+rect_coords <- function(minWorS, maxEorN, ncuts, EWorNS = "EW", constEWorNS, 
+                        resEWorNS) {
   space <- diff(c(minWorS, maxEorN)) / ncuts  # Resolution in map coordinates for legend boxes 
   crds <- seq(minWorS, maxEorN, space)  # map coordinates for legend boxes
   vcrd <- rbind(crds[-length(crds)], crds[-1])  # Segment coordinates (legend intervals)
