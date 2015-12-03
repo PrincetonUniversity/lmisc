@@ -72,8 +72,9 @@ set_base_path <- function(currdir = ".") {
   if(!dpathrt[length(dpathrt)] %in% bnames) {
     stop(paste("setwd() into", currdir), call. = FALSE)
   }
-  full_path(gsub(paste0("(", currdir, ".*)"), "", dpath, ignore.case = TRUE, 
-                 perl = TRUE), currdir)
+  gstring <- paste0("(", currdir, ")(?=[^(", currdir, ")]*$)")
+  full_path(gsub(gstring, "", dpath, ignore.case = TRUE, perl = TRUE),
+            currdir)
 }
 
 
