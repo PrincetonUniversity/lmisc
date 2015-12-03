@@ -57,3 +57,24 @@ named_out <- function(ret, nm) {
   names(ret) <- nm
   return(ret)
 }
+
+#' Gives model base path
+#' @description Finds the full base path for the directory you are working in, 
+#' useful for knitting Rmd files.
+#' @param rootdir Name of directory you want to be in
+#' @return Full path of main project directory
+#' @export
+set_base_path <- function(currdir = ".") {
+  dpath <- getwd()
+  path.expand(dpath)
+  if(currdir == ".") currdir <- basename(dpath)
+  dpathrt <- strsplit(dpath, .Platform$file.sep)[[1]]
+  bnames <- c(currdir, tolower(currdir))
+  if(!dpathrt[length(dpathrt)] %in% bnames) {
+    stop(paste("setwd() into", currdir), call. = FALSE)
+  }
+  full_path(gsub(paste0("(", currdir, ".*)"), "", dpath, ignore.case = TRUE, 
+                 perl = TRUE), currdir)
+}
+
+
