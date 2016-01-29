@@ -3,9 +3,27 @@
 #' @param path Path directory
 #' @param fname File name
 #' @return Complete file string
-#' @details Currently not set up for Windows path variables. Will need an extra line or two. 
+#' @details Deprecated in favor of fp, but retained to avoid breaking earlier 
+#' code and analyses
 #' @export
 full_path <- function(path, fname) {
+  pend <- substr(path, nchar(path), nchar(path))
+  if(pend != .Platform$file.sep) {
+    pout <- paste(path, .Platform$file.sep, fname, sep = "") 
+  } else { 
+    pout <- paste(path, fname, sep = "")
+  }
+  pout
+}
+
+#' Easier joining of file paths and file names for reading in files
+#' 
+#' @param path Path directory
+#' @param fname File name
+#' @return Complete file string
+#' @details Replacement for full_path
+#' @export
+fp <- function(path, fname) {
   pend <- substr(path, nchar(path), nchar(path))
   if(pend != .Platform$file.sep) {
     pout <- paste(path, .Platform$file.sep, fname, sep = "") 
@@ -76,5 +94,3 @@ set_base_path <- function(currdir = ".") {
   full_path(gsub(gstring, "", dpath, ignore.case = TRUE, perl = TRUE),
             currdir)
 }
-
-

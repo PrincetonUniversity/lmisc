@@ -2,11 +2,14 @@ Package: lmisc
 Type: Package
 Title: Miscellaneous functions for plotting and performing various small tasks
 Description: A set of various functions that I have found helpful across
-    various R projects. 
+    various R projects.
 Version: 0.2.6
 Date: 03-December-2015
 Author: Lyndon Estes <lestes@princeton.edu>
 Maintainer: Lyndon Estes <lestes@princeton.edu>
-Depends:
-Imports:
 License: GPL (>= 3)
+Depends: 
+  Hmisc
+Imports: 
+  Hmisc
+RoxygenNote: 5.0.1
