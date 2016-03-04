@@ -84,13 +84,19 @@ named_out <- function(ret, nm) {
 #' @export
 set_base_path <- function(currdir = ".") {
   dpath <- getwd()
-  if(currdir == ".") currdir <- basename(dpath)
-  dpathrt <- strsplit(dpath, .Platform$file.sep)[[1]]
-  bnames <- c(currdir, tolower(currdir))
-  if(!dpathrt[length(dpathrt)] %in% bnames) {
-    stop(paste("setwd() into", currdir), call. = FALSE)
+  if(currdir == ".") {
+    currdir <- basename(dpath)
+    bnames <- c(currdir, tolower(currdir))
+    if(!dpathrt[length(dpathrt)] %in% bnames) {
+      stop(paste("setwd() into", currdir), call. = FALSE)
+    }
+    opath <- dpath
   }
-  gstring <- paste0("(", currdir, ")(?=[^(", currdir, ")]*$)")
-  full_path(gsub(gstring, "", dpath, ignore.case = TRUE, perl = TRUE),
-            currdir)
+  if(currdir != ".") {
+    dpathrt <- strsplit(dpath, .Platform$file.sep)[[1]]
+    cdind <- which(dpathrt == currdir)  # folder index
+    opath <- paste0(dpathrt[1:cdind[length(cdind)]], 
+                    collapse = .Platform$file.sep)
+  }
+  return(opath)
 }
